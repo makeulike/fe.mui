@@ -1,0 +1,18 @@
+.ui__scroll-top{
+  position:absolute;
+  right:0;
+  & > div{ position:fixed}
+}
+
+.ui__scroll-top {
+  position: absolute;
+  right: 0;
+  z-index: 500;
+  display: none; 
+  &> div {
+      position: fixed;
+      width: 12.8125%;
+      right:3%;
+      bottom: 3.59375%; 
+  }
+}

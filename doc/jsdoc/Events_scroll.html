@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>MUI Namespace: Events/scroll</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">MUI</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Events_form.html">Events/form</a></li><li><a href="Events_scroll.html">Events/scroll</a></li><li><a href="mui.html">mui</a></li><li><a href="mui.ajax.html">mui.ajax</a></li><li><a href="mui.common.html">mui.common</a></li><li><a href="mui.modal.html">mui.modal</a></li><li><a href="mui.util.html">mui.util</a></li><li><a href="mui.validate.html">mui.validate</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-jQuery%2520Mousewheel.html">jQuery Mousewheel</a></li><li><a href="module-polyfill.html">polyfill</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Events_mousewheel.html">Events/mousewheel</a></li><li><a href="Request.html">Request</a></li><li><a href="Sequence.html">Sequence</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Events_form.html#.event:inputfocusin">Events/form.event:input focusin</a></li><li><a href="Events_form.html#.event:inputfocusout">Events/form.event:input focusout</a></li><li><a href="Events_form.html#.event:inputkeypress">Events/form.event:input keypress</a></li><li><a href="Events_form.html#.event:input%255Bdata-input=%2522tel%2522%255Dkeypress">Events/form.event:input[data-input="tel"] keypress</a></li><li><a href="Events_form.html#.event:labelclick">Events/form.event:label click</a></li><li><a href="Events_scroll.html#.event:%255Bdata-toggle=%2522scrollspy%2522%255Dclick">Events/scroll.event:[data-toggle="scrollspy"] click</a></li><li><a href="Events_scroll.html#.event:ui__scroll-topclick">Events/scroll.event:ui__scroll-top click</a></li><li><a href="mui.modal.html#.event:%255Ba%255D%25EB%25AA%25A8%25EB%258B%25AC%25EC%25B0%25BD%25EB%258B%25AB%25EA%25B8%25B0">mui.modal.event:[a] 모달창 닫기</a></li><li><a href="mui.modal.html#.event:%255Ba%255D%25EB%25AA%25A8%25EB%258B%25AC%25EC%25B0%25BD%25EC%2597%25B4%25EA%25B8%25B0">mui.modal.event:[a] 모달창 열기</a></li><li><a href="mui.modal.html#.event:%255Bdevelop%255D%25EB%258B%25A4%25EC%25A4%2591%25EB%25AA%25A8%25EB%258B%25AC%25EC%25B0%25BD%25EB%258B%25AB%25EA%25B8%25B0">mui.modal.event:[develop] 다중 모달창 닫기</a></li><li><a href="mui.modal.html#.event:%255Bdevelop%255D%25EB%25A0%2588%25EC%259D%25B4%25EC%2596%25B4%25ED%258C%259D%25EC%2597%2585%25EC%25A0%2584%25ED%2599%2598">mui.modal.event:[develop] 레이어 팝업 전환</a></li><li><a href="mui.modal.html#.event:%255Bwindow%255D%25EB%25B8%258C%25EB%259D%25BC%25EC%259A%25B0%25EC%25A0%2580%25ED%2581%25AC%25EA%25B8%25B0%25EB%25B3%2580%25EA%25B2%25BD">mui.modal.event:[window] 브라우저 크기 변경</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#cancelAnimationFrame">cancelAnimationFrame</a></li><li><a href="global.html#requestAnimationFrame">requestAnimationFrame</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	<h1 class="page-title">Namespace: Events/scroll</h1>
+<section>
+
+<header>
+    
+        <h2>
+        Events/scroll
+        </h2>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".$.fn.scrollEnd"><span class="type-signature">&lt;static> </span>$.fn.scrollEnd(callback, timeout)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        스크롤 이벤트 종료 핸들러
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">스크롤 종료 이벤트 콜백</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Int</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">콜백 실행 Delay (ms)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(window).scrollEnd(function() { // do stuff}, 1500);      </pre>
+
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+        <h3 class="subsection-title">Events</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".event:%5Bdata-toggle=%22scrollspy%22%5Dclick">[data-toggle="scrollspy"] click</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        ScrollSpy 기능
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>href</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ID</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">해당 ID를 가진 엘리먼트의 최 상단으로 이동</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Selector</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">data-avoid-target</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">target 된 스크롤 시 엘리먼트의 높이값을 더함</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">// Basic&lt;a href=&quot;#target&quot; data-toggle=&quot;scrollspy&quot;&gt;   target으로 이동 &lt;/a&gt;</pre>
+
+    <pre class="sunlight-highlight-javascript">// data-avoid-target 적용&lt;a href=&quot;#target&quot; data-toggle=&quot;scrollspy&quot; data-avoid-target=&quot;.gnb&quot;&gt;   target의 위치와 $(&#x27;.gnb&#x27;) 높이를 더한 값으로 이동&lt;/a&gt;</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".event:ui__scroll-topclick">ui__scroll-top click</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Scroll To Top 이벤트 핸들러 <br/>문서의 최 상단으로 올라가게 하는 기능 (700ms)
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">&lt;a role=&quot;button&quot; className=&quot;ui__scroll-top&quot;&gt;&lt;/a&gt;</pre>
+
+
+    
+</dd>
+
+        </dl>
+    
+</article>
+
+</section>
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on 2016-03-11T18:44:08+09:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : false,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

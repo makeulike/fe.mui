@@ -1,0 +1,62 @@
+// ----------------------------------------------------------------------------------------------------
+// # Modal Module
+// # 모달 레이어 팝업 모듈
+// @ usage : none
+// ----------------------------------------------------------------------------------------------------
+.modal{
+  $z-index: 9999;
+  $backdrop-color: black;
+  $opacity: 0.8;
+  // Block
+  &{
+    @include fully-layout(absolute);
+    outline:0;
+    z-index:$z-index;
+
+    display:none;
+    
+    width:100%;
+    height:100%;
+  }
+
+  &-open{
+    overflow-y: scroll;
+    & > #viewport{
+      position:fixed;
+      width:100%;
+      max-width:none;
+    }
+  }
+
+  &-content{
+    position:absolute;
+    width:90%;
+    z-index:$z-index - 100;
+    top:50%;
+    left:50%;
+
+    [data-view="full"] &{
+      width:100%;
+      height:100%;
+      top:auto;
+      left:auto;
+      margin:0;
+    }
+    
+  }
+
+  &-backdrop{
+    @include fully-layout(fixed);
+    @include opacity($opacity);
+    z-index:$z-index - 1000;
+
+    background-color:$backdrop-color;    
+  }
+  
+  // Element
+  &__close{
+    position:absolute;
+    background-repeat: no-repeat;
+  }
+
+}

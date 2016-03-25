@@ -1,0 +1,26 @@
+// ----------------------------------------------------------------------------------------------------
+// # Animation Module
+// # 애니메이션 정의
+// @ usage : none
+// ----------------------------------------------------------------------------------------------------
+
+// ## 애니메에션 키 프레임
+@keyframes anim-scale {
+	from {
+		-webkit-transform: scale3d(.8,.8,.8);
+		transform: scale3d(.8,.8,.8);
+	}
+
+	to {
+		-webkit-transform: scale3d(1,1,1);
+		transform: scale3d(1,1,1);
+	}
+}
+
+// ## 애니메에션 클래스
+.modal-scale {
+  	animation-name: anim-scale;
+	animation-duration: .3s;
+  	animation-direction: alternate;
+  	animation-timing-function:cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}

@@ -1,0 +1,42 @@
+// ----------------------------------------------------------------------------------------------------
+// # Input Box
+// # Input[type=*(not Checkbox, Radio)] , Textarea 스타일
+// @ usage : none
+// ----------------------------------------------------------------------------------------------------
+
+// ## 기본 스타일 정의
+input[type="text"],
+input[type="tel"],
+input[type="number"],
+input[type="url"],
+textarea {
+  line-height: 1.231;
+  margin:0;
+  -webkit-appearance:none;
+  border:1px solid #e0e0e0; 
+  border-radius:0;
+  resize:none;
+}
+
+[disabled="true"]{
+  cursor:default;
+}
+
+
+// ## 반응형 인풋 박스
+.fluid-input{
+  position: relative;
+  padding-bottom: 11%; // Baseline
+  display: block;
+  vertical-align: top;
+  height: 0;
+  &.text{
+    input[type="text"]{
+      position: absolute;
+      left: 0;top: 0;
+      width: 100%;
+      height: 100%;
+      border:0;
+    }
+  }
+}

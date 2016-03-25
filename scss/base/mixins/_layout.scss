@@ -1,0 +1,60 @@
+/**
+ * REM 사용을 위한 Viewport 세팅
+ * @param {Array} $array       Viewport 크기가 저장 된 배열
+ * @param {String} $orientation :             'portrait' landscape 이면 별도 표기
+ */
+@mixin setViewport($array, $orientation: 'portrait') {
+  #viewport {
+    max-width: $design-width;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  @for $i from 1 to (length($array)+1) {
+    $thisViewport: unquote(nth($array, $i));
+    // 360px 미만에서는 동일한 viewport 크기로 계산.
+    @if $i >=( length($array) - 1) {
+      $nextViewport: $thisViewport;
+    }
+    @else {
+      $nextViewport: unquote(nth($array, $i + 1));
+    }
+    @if $orientation=='portrait' {
+      @media all and (max-width: $thisViewport) {
+        font-size: floor( $root-em / ($design-width / $nextViewport));
+      }
+    }
+    @if $orientation=='landscape' {
+      @media all and (max-width: $thisViewport) and ( orientation: landscape) {
+        font-size: floor( $root-em / ($design-width / $nextViewport));
+      }
+    }
+  }
+}
+
+
+/**
+ * %단위의 넓이 설정
+ * @param  {int} $width      %를 구할 px단위의 숫자
+ * @param  {int} $wrap-width :             $design-width %를 구할 px의 기준이 되는 숫자
+ * @return {int}             변환 된 %
+ * @include set-width(300px) = [ 300px / design-draft * 100% ] 
+ */
+
+@mixin set-width($width, $wrap-width: $design-width) {
+  width: ($width / $wrap-width) * 100%;
+}
+
+
+/**
+ * 부모 포지션의 영역을 모두 채움
+ * 단, fixed 인 경우에는 브라우저 영역 전체를 채움
+ * @param  {String} $type absolute / fixed
+ */
+
+@mixin fully-layout($type) {
+  position: $type;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

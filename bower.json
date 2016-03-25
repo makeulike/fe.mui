@@ -1,0 +1,9 @@
+{
+  "name": "Bower for Gulp",
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "1.11.3",
+    "jquery-migrate": "~1.2.1"
+  }
+}
