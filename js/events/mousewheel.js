@@ -24,7 +24,7 @@
 
 
     // Mozilla 계열 브라우저에서 DOMMouseScroll 에 대한 이벤트 추가
-    if (window.addEventListener){
+    if (window.addEventListener) {
       selector.addEventListener('DOMMouseScroll', function(ev) {
         self.eventCallback(ev, self);
       }, false);
@@ -33,6 +33,7 @@
     selector.onmousewheel = function(ev) {
       self.eventCallback(ev, self);
     }
+
     this.isUpFunction = directionUpFunc;
     this.isDownFunction = directionDownFunc;
   };
@@ -45,21 +46,37 @@
    * @param  {String} self 생성 당시의 This 값
    */
   MouseWheel.prototype.eventCallback = function(ev, self) {
-    ev.preventDefault();
-    ev.stopPropagation();
+    /** IE8 Define Event Polyfill */
+    ev = ev || window.event;
+
+    /** IE8 preventDefault Polyfill */
+    if (ev.preventDefault) {
+      ev.preventDefault();
+    } else {
+      ev.returnValue = false;
+    }
+
+    /** IE8 stopPropagation Polyfill */
+    if (ev.stopPropagation) {
+      ev.stopPropagation();
+    } else {
+      ev.returnValue = false;
+    }
+
+    //ev.stopPropagation();
 
     var delta = 0;
 
-    if( !ev ) { ev = window.event; }
-    if( ev.wheelDelta ){  //  Internet Explorer & Opera
+    if (!ev) { ev = window.event; }
+    if (ev.wheelDelta) { //  Internet Explorer & Opera
       delta = ev.wheelDelta / 60;
-    } else if( ev.detail ){ // W3C Standards
+    } else if (ev.detail) { // W3C Standards
       delta = -ev.detail / 2;
     }
 
-    if(self.getDirection(delta) > 0){
+    if (self.getDirection(delta) > 0) {
       this.isUpFunction();
-    }else{
+    } else {
       this.isDownFunction();
     }
   };
@@ -71,11 +88,10 @@
    * @param  {Int} delta 스크롤 Delta 값
    * @return {Int}       1(위) or -1(아래)
    */
-  MouseWheel.prototype.getDirection = function(delta){
-    if(delta > 0){
+  MouseWheel.prototype.getDirection = function(delta) {
+    if (delta > 0) {
       return 1;
     } else {
       return -1;
     }
   }
-  

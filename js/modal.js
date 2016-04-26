@@ -32,7 +32,7 @@ try {
      * @private
      */
     var getVerticalMiddleValue = function() {
-      return (mui.common.getWindowHeight() > $('.modal-content', $el).innerHeight() + getCloseButtonHeight()) ?
+      return (mui.common.getWindowHeight() > $('.modal-content', $el).innerHeight() + getCloseButtonHeight() * 2 ) ?
         -($('.modal-content', $el).innerHeight() / 2) :
         ((mui.common.getWindowHeight() / 2 - getCloseButtonHeight()) - ($(window).innerHeight() * 0.02)) * -1;
     };
@@ -53,6 +53,13 @@ try {
      */
     var getCloseButtonHeight = function() {
       var $closeButton = $('.modal__close', $el);
+
+      /**
+       * .modal__close 가 아닌, SMACSS Style 형식인 경우.
+       */
+      if( $closeButton.length < 1 )
+        $closeButton = $('.modal-btn-close', $el);
+
       var height = parseInt($closeButton.css('top'));
 
       if (height < 0)

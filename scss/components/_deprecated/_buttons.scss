@@ -1,0 +1,12 @@
+.btn-scroll-top {
+  position: absolute;
+  right: 0;
+  z-index: 500;
+  display: none; 
+  &__elem {
+      position: fixed;
+      width: 12.8125%;
+      right:3%;
+      bottom: 3.59375%; 
+  }
+}

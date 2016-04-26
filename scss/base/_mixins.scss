@@ -73,18 +73,13 @@
     }
     @each $viewport in $viewport-array {
       @include breakpoint-max($viewport) {
-        $each-width: floor( $width / ($design-width / $viewport)) - 2;
-        display: inline-block;
+        $each-width: floor( $width / ($design-width / $viewport));
         
         padding-left: $each-width;
         height: $each-width;
-        
-        background-image:url($url);
-        background-repeat: no-repeat;
-        background-position: 0 0;
+
         background-size: $each-width;
         
-        cursor: pointer;
         &.checked{
           background-position:0 (-$each-width);
         }
@@ -100,7 +95,7 @@
   }
 }
 
-@mixin checkbox-responsive($url, $width, $ratio : 100%){
+@mixin checkbox-elem($url, $width, $ratio : 100%){
 
   display: block;
 
@@ -135,16 +130,11 @@
       $each-width: floor( $width / ($design-width / $viewport)) - 2;
       & > i{
         width : $each-width;
-        background:transparent url($url) no-repeat;
-        background-position:0 0;
         background-size:$each-width;
-        cursor:pointer;
       }
       
       & > i:after{
           padding-bottom:$each-width;
-          content:'';
-          display:block;
       }
 
       &.checked > i{

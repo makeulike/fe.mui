@@ -4,17 +4,11 @@
 // ----------------------------------------------------------------------------------------------------
 
 // ## Scroll to Top
-.btn-scroll-top {
-  position: absolute;
-  right: 0;
-  z-index: 500;
-  display: none; 
-  &__elem {
-      position: fixed;
-      width: 12.8125%;
-      right:3%;
-      bottom: 3.59375%; 
-  }
+.btn-scroll-top{
+  position:fixed;
+  bottom:rem(20px);
+  right:rem(20px);
+  z-index:1000;
 }
 
 [role="button"]{
