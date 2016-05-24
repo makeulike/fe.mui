@@ -15,8 +15,6 @@ try {
     var 
     $modal           = $('[data-role="modal"]'),
     $modalBackdrop   = $('<div class="modal-backdrop"></div>'),
-    $btnModalCall    = $('[data-toggle="modal"]'),
-    $btnModalDestroy = $('[data-rel="back"]'),
     $el;
 
     var 
@@ -193,7 +191,7 @@ try {
     ** @event: 모달 오픈
     ** @anchor: 정명학
     */
-    $(document).on('click', '[data-toggle="modal"]', function(e){
+    $('[data-toggle="modal"]').on('click', function(e){
       console.log($(this))
       var target = $(this).attr('href').replace("#", '');
       e.preventDefault();
@@ -219,7 +217,7 @@ try {
      * @example
      * <a href="#" data-rel="back">닫기</a>
      */
-    $(document).on('click', '[data-rel="back"]', function(e) {
+    $('[data-rel="back"]').on('click', function(e) {
       e.stopPropagation();
 
       var target = $(this).closest($modal).attr('id');
@@ -268,7 +266,7 @@ try {
     ** @date: 2015.08.10
     ** @anchor: 정명학
     */
-    $(document).on('click', '.modal__close', function(){
+    $('.modal__close').on('click', function(){
       $('.modal [data-rel="back"]').removeAttr('data-target');
     });
 
@@ -276,7 +274,7 @@ try {
      * @event [develop] 레이어 팝업 전환
      * @memberOf mui.modal
      */
-    $(document).on('click', '[data-history-back]', function() {
+    $('[data-history-back]').on('click', function() {
       var _this = $(this).attr('href'),
         _target = $(this).attr('data-history-back').replace('#', '');
       var $el = $(_this);
