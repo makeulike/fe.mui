@@ -17,8 +17,6 @@ try {
     $modalBackdrop   = $('<div class="modal-backdrop"></div>'),
     $btnModalCall    = $('[data-toggle="modal"]'),
     $btnModalDestroy = $('[data-rel="back"]'),
-    $btnModalClose   = $('.modal__close'),
-    $btnModalBack    = $('[data-history-back]'),
     $el;
 
     var 
@@ -195,7 +193,8 @@ try {
     ** @event: 모달 오픈
     ** @anchor: 정명학
     */
-    $btnModalCall.on('click', function(e){
+    $(document).on('click', '[data-toggle="modal"]', function(e){
+      console.log($(this))
       var target = $(this).attr('href').replace("#", '');
       e.preventDefault();
 
@@ -220,10 +219,13 @@ try {
      * @example
      * <a href="#" data-rel="back">닫기</a>
      */
-    $btnModalDestroy.on('click', function(e) {
+    $(document).on('click', '[data-rel="back"]', function(e) {
+      e.stopPropagation();
+
       var target = $(this).closest($modal).attr('id');
       var refTarget = $(this).attr('data-target');
 
+      // 이벤트 버블현상 제거 [160524]
       e.preventDefault();
 
       if (typeof refTarget !== "undefined") {
@@ -266,7 +268,7 @@ try {
     ** @date: 2015.08.10
     ** @anchor: 정명학
     */
-    $btnModalClose.on('click', function(){
+    $(document).on('click', '.modal__close', function(){
       $('.modal [data-rel="back"]').removeAttr('data-target');
     });
 
@@ -274,7 +276,7 @@ try {
      * @event [develop] 레이어 팝업 전환
      * @memberOf mui.modal
      */
-    $btnModalBack.on('click', function() {
+    $(document).on('click', '[data-history-back]', function() {
       var _this = $(this).attr('href'),
         _target = $(this).attr('data-history-back').replace('#', '');
       var $el = $(_this);
