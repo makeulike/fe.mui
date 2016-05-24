@@ -20,7 +20,7 @@
     }
     @if $orientation=='portrait' {
       @media all and (max-width: $thisViewport) {
-        font-size: ceil( $root-em / ($design-width / $nextViewport));
+        font-size: floor( $root-em / ($design-width / $nextViewport));
       }
     }
     @if $orientation=='landscape' {

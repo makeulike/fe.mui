@@ -310,10 +310,10 @@ try {
         $(window).delay(200).scrollTop(0);
       }
 
-      /*
+      
       if (_windowHeight < $(document).innerHeight())
         $modalBackdrop.height(_windowHeight);
-      */
+      
     });
 
     return {

@@ -191,21 +191,21 @@
 // usage : @include 
 // ----------------------------------------------------------------------------------------------------
 @mixin breakpoint($property, $point) {
-    @media ($property: $point)  { @content; }
+    @media screen and ($property: $point)  { @content; }
 }
 
 @mixin breakpoint-max($point) {
   @if $point == large {
-    @media (max-width: 64.375em) { @content; }
+    @media screen and (max-width: 64.375em) { @content; }
   }
   @else if $point == medium {
-    @media (max-width: 50em) { @content; }
+    @media screen and (max-width: 50em) { @content; }
   }
   @else if $point == small {
-    @media (max-width: 37.5em)  { @content; }
+    @media screen and (max-width: 37.5em)  { @content; }
   }
   @else {
-    @media (max-width: $point)  { @content; }
+    @media screen and (max-width: $point)  { @content; }
   }
 }
 
@@ -214,7 +214,7 @@
 // usage : @include image-2x("logo2x.png", 100px, 25px);
 // ----------------------------------------------------------------------------------------------------
 @mixin image-2x($image, $width, $height) {
-  @media (min--moz-device-pixel-ratio: 1.3),
+  @media screen and (min--moz-device-pixel-ratio: 1.3),
          (-o-min-device-pixel-ratio: 2.6/2),
          (-webkit-min-device-pixel-ratio: 1.3),
          (min-device-pixel-ratio: 1.3),
@@ -304,6 +304,13 @@
   -moz-transform:$property;
   -ms-transform:$property;
   transform:$property;
+}
+
+@mixin transform-origin($property){
+  -webkit-transform-origin:$property;
+  -moz-transform-origin:$property;
+  -ms-transform-origin:$property;
+  transform-origin:$property;
 }
 // ----------------------------------------------------------------------------------------------------
 // transition

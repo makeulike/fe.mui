@@ -32,7 +32,7 @@ try {
      * @param  {Event} e   해당 폼의 이벤트 (선택사항)
      */
     var initForm = function($el, e) {
-      $("form").each(function() {
+      $el.each(function() {
         if (this.className === $el.attr('class'))
           this.reset();
         else if (this.id === $el.attr('id'))

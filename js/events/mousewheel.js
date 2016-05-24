@@ -49,19 +49,26 @@
     /** IE8 Define Event Polyfill */
     ev = ev || window.event;
 
-    /** IE8 preventDefault Polyfill */
+    /**
+     * @date: 160509
+     * 상위 DOM 에서도 해당 영역에 대한 스크롤을 방해하기 때문에
+     * 각 방향 별 callback 함수에서 preventDefault() 를 지정하게 하는 것으로 변경
+     */
+
+    /** IE8 preventDefault Polyfill 
     if (ev.preventDefault) {
       ev.preventDefault();
     } else {
       ev.returnValue = false;
-    }
+    }*/
 
     /** IE8 stopPropagation Polyfill */
     if (ev.stopPropagation) {
       ev.stopPropagation();
-    } else {
+    } 
+    /*else {
       ev.returnValue = false;
-    }
+    }*/
 
     //ev.stopPropagation();
 
@@ -75,9 +82,9 @@
     }
 
     if (self.getDirection(delta) > 0) {
-      this.isUpFunction();
+      this.isUpFunction(ev);
     } else {
-      this.isDownFunction();
+      this.isDownFunction(ev);
     }
   };
 
