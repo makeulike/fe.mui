@@ -54,9 +54,13 @@
   }
   
   // Element
-  &__close{
+  &__close,
+  &-btn-close{
     position:absolute;
     background-repeat: no-repeat;
   }
 
+  &.is-opened{
+    z-index:1000;
+  }
 }

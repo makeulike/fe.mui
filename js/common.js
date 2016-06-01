@@ -76,11 +76,45 @@ try {
       return (currentURL.indexOf(url) > -1);
     }
 
+    var setLandscapeMessage = function(url){
+      var elem = document.createElement('div');
+            elem.id = 'is-landscape';
+
+      elem.style.display = "none";
+      elem.style.position = "fixed";
+
+      elem.style.top = 0;
+      elem.style.right = 0;
+      elem.style.bottom = 0;
+      elem.style.left = 0;
+
+      elem.style.zIndex = 9999;
+
+      elem.style.backgroundImage = 'url('+url+')';
+      elem.style.backgroundColor = "#000";
+      elem.style.backgroundPosition = 'center';
+      elem.style.backgroundRepeat = "no-repeat";
+      elem.style.backgroundSize = '400px auto';
+      
+      document.body.appendChild(elem);
+
+      // Event Listening
+      window.addEventListener('orientationchange', function(ev){
+        if(window.orientation === 0){
+          elem.style.display = "none";
+        } else {
+          elem.style.display = "block";
+        }
+      });
+      
+    };
+
     return {
       getWindowWidth: getWindowWidth,
       getWindowHeight: getWindowHeight,
       disabledDefaultMouseEvents: disabledDefaultMouseEvents,
-      isDomain: isDomain
+      isDomain: isDomain,
+      setLandscapeMessage:setLandscapeMessage
     };
   })(mui, $);
 } catch (e) {

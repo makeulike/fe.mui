@@ -12,15 +12,14 @@ try {
   mui.modal = (function(mui, $, undefined) {
     "use strict";
 
-    var 
-    $modal           = $('[data-role="modal"]'),
-    $modalBackdrop   = $('<div class="modal-backdrop"></div>'),
-    $el;
+    var
+      $modal = $('[data-role="modal"]'),
+      $modalBackdrop = $('<div class="modal-backdrop"></div>'),
+      $el;
 
-    var 
-    ref = null,
-    tmpPos = 0,
-    openMotion = '';
+    var
+      tmpPos = 0,
+      openMotion = '';
 
     /**
      * @function mui.modal.getVerticalMiddleValue
@@ -28,7 +27,7 @@ try {
      * @private
      */
     var getVerticalMiddleValue = function() {
-      return (mui.common.getWindowHeight() > $('.modal-content', $el).innerHeight() + getCloseButtonHeight() * 2 ) ?
+      return (mui.common.getWindowHeight() > $('.modal-content', $el).innerHeight() + getCloseButtonHeight() * 2) ?
         -($('.modal-content', $el).innerHeight() / 2) :
         ((mui.common.getWindowHeight() / 2 - getCloseButtonHeight()) - ($(window).innerHeight() * 0.02)) * -1;
     };
@@ -53,7 +52,7 @@ try {
       /**
        * .modal__close 가 아닌, SMACSS Style 형식인 경우.
        */
-      if( $closeButton.length < 1 )
+      if ($closeButton.length < 1)
         $closeButton = $('.modal-btn-close', $el);
 
       var height = parseInt($closeButton.css('top'));
@@ -73,38 +72,57 @@ try {
       return (mui.common.getWindowHeight() < $('.modal-content', $el).innerHeight() + getCloseButtonHeight());
     };
 
+    var isOpenedModal = function(action){
+      var $target = false;
+      if( action === "open" ){
+        $modal.each(function(){
+          if( $(this).css('display') === "block" ){
+            $target = $(this);
+            return false;
+          }        
+        });
+      } else if ( action === "close" ){
+        $modal.each(function(){
+          if( $(this).hasClass('is-opened') ){
+            $target = $(this);
+            return false;
+          }        
+        });
+      }
+
+      return $target;
+    };
+
     /**
      * 모달창 오픈
      * @function mui.modal.open
      * @param  {String} id DOM ID
      */
     var openModal = function(id) {
+
       $el = $('#' + id);
 
-      if (typeof ref === "undefined") {
-        /*
-         ** @desc
-         ** 레이어 팝업 1 에서 2로 바로 갈 경우, 1의 History 를 기억해야 함
-         ** 현재는 바로 전 단계만 이동하는 프로세스 (3단계 이상 일 경우 추적 X, history 배열 사용 해야 함)
-         ** 16.01.04 추가 > ref에 대한 기능을 다시 체크
-         */
-        $('[data-rel="back"]', $el).attr('data-target', ref);
-        /*
-         ** @desc: 레이어 팝업 제거 후 false 로 만들기 (버퍼)
-         */
-        closeModal(ref);
+      /**
+       * 160526
+       * 엔터키 입력 시 계속 실행되는 것을 방지하게 위하여 blur 처리
+       */
+      $('a, input, button').trigger("blur");
+
+      if( isOpenedModal('open') ){
+        var $_self = isOpenedModal('open');
+              $_self.addClass('is-opened');
+      } else if( !isOpenedModal('open') ) {
+        tmpPos = $(window).scrollTop();
+        $('#viewport').css('top', tmpPos * -1);
       }
 
       /*
        ** @desc: 팝업 오픈 시 현재 Y값을 저장, fixed position이 된 viewport에다가 fake로 페이지가 내려 온 것처럼 보이게 함 (페이스북 스타일)
        */
 
-      tmpPos = $(window).scrollTop();
-      $('#viewport').css('top', tmpPos * -1);
-
       $("input,select,radio,checkbox").blur();
-      
-      if(mui.modal.openMotion === '')
+
+      if (mui.modal.openMotion === '')
         mui.modal.openMotion = 'modal-scale';
 
       if ($modal.length && $el.length) {
@@ -153,29 +171,17 @@ try {
 
       $el.hide();
 
-      $('.modal-content').removeClass(mui.modal.openMotion);
-      /*
-      @date: 16.01.06
-      @anchor: 정명학
-      @창 닫을 시 구분없이 모달 창 종류와 관계없이 공통적인 액션을 취함
-      if(ref !== 'modal') {
-        $('body .modal-backdrop').fadeOut(0, function(){
-          $('body').removeClass('modal-open').removeAttr('style');
+      // 모달창이 열려 있으면 해당되는 레이어팝업만 닫게 하기 (160525)
+      if( isOpenedModal('close') !== false ){
+        var $_self = isOpenedModal('close');
+              $_self.removeClass('is-opened');
 
-           $('#viewport').removeAttr('style');
-           $(window).scrollTop(tmpPos);
-
-         });
-        $(this).remove();
-      } else if( ref === 'modal'){
-
+        return true;
       }
 
-      if($('body').hasClass('modal-open'))
-        $('body').removeClass('modal-open').css('overflow', 'auto');
-      */
-     
-      $('body .modal-backdrop').fadeOut(100, function(){
+      $('.modal-content').removeClass(mui.modal.openMotion);
+
+      $('body .modal-backdrop').fadeOut(0, function() {
         $('body').removeClass('modal-open');
 
         $('#viewport').removeAttr('style');
@@ -183,27 +189,15 @@ try {
       });
 
       //$(this).remove();
-
-      ref = false;
     };
-    
+
     /*
-    ** @event: 모달 오픈
-    ** @anchor: 정명학
-    */
-    $('[data-toggle="modal"]').on('click', function(e){
-      console.log($(this))
+     ** @event: 모달 오픈
+     ** @anchor: 정명학
+     */
+    $('[data-toggle="modal"]').on('click', function(e) {
       var target = $(this).attr('href').replace("#", '');
       e.preventDefault();
-
-      ref = $(this).parents('[data-role="modal"]').attr('id');
-
-      /*
-       ** @date: 160106
-       ** @bugfix: openModal 함수에서 undefined 다 계속 걸려 closeModal 함수가 실행되어 tmpPos 값 갱신이 되지않아 먼저 null 값으로 type 을 object 로 변경
-       */
-      if (typeof ref === "undefined")
-        ref = null;
 
       openModal(target);
     });
@@ -247,7 +241,7 @@ try {
     /**
      * @event: 레이어팝업 영역 이 외 클릭 시 액션
      */
-    $modal.on('click', function(e){
+    $modal.on('click', function(e) {
       /**
        * 레이어 팝업에서 창 닫을 시 각각의 레이어 팝업 성향에 따라 액션이 다르기 때문에 trigger 로 대체
        */
@@ -257,30 +251,8 @@ try {
     /**
      * @event 레이어팝업 내부 클릭 시 이벤트 버블현상 제거
      */
-    $('.modal-content').on('click',function(e){
+    $('.modal-content').on('click', function(e) {
       e.stopPropagation();
-    });
-
-    /*
-    ** @event: data-target 이 꼬이는 현상 (X버튼 누르면 )
-    ** @date: 2015.08.10
-    ** @anchor: 정명학
-    */
-    $('.modal__close').on('click', function(){
-      $('.modal [data-rel="back"]').removeAttr('data-target');
-    });
-
-    /**
-     * @event [develop] 레이어 팝업 전환
-     * @memberOf mui.modal
-     */
-    $('[data-history-back]').on('click', function() {
-      var _this = $(this).attr('href'),
-        _target = $(this).attr('data-history-back').replace('#', '');
-      var $el = $(_this);
-
-      $(this).closest('[data-role="modal"]').hide();
-      $el.find('[data-rel]').attr('data-target', _target);
     });
 
     /**
@@ -297,8 +269,8 @@ try {
       /**
        * 현재 모달이 지정되어 있으면서 해당 모달이 block 형태라면 리사이징 진행
        */
-      if( typeof $el !== "undefined" && $el.css('display') === "block"){
-        if ( $el.attr('data-view') === "full" )
+      if (typeof $el !== "undefined" && $el.css('display') === "block") {
+        if ($el.attr('data-view') === "full")
           return true;
 
         $('.modal-content', $el).delay(100).css({
@@ -310,10 +282,10 @@ try {
         $(window).delay(200).scrollTop(0);
       }
 
-      
+
       if (_windowHeight < $(document).innerHeight())
         $modalBackdrop.height(_windowHeight);
-      
+
     });
 
     return {
