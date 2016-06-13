@@ -15,7 +15,8 @@ try {
     var
       $modal = $('[data-role="modal"]'),
       $modalBackdrop = $('<div class="modal-backdrop"></div>'),
-      $el;
+      $el,
+      $a11yFocused;
 
     var
       tmpPos = 0,
@@ -99,8 +100,10 @@ try {
      * @param  {String} id DOM ID
      */
     var openModal = function(id) {
-
       $el = $('#' + id);
+      
+      // 키보드 접근성
+      $a11yFocused = $(document.activeElement);
 
       /**
        * 160526
@@ -119,7 +122,6 @@ try {
       /*
        ** @desc: 팝업 오픈 시 현재 Y값을 저장, fixed position이 된 viewport에다가 fake로 페이지가 내려 온 것처럼 보이게 함 (페이스북 스타일)
        */
-
       $("input,select,radio,checkbox").blur();
 
       if (mui.modal.openMotion === '')
@@ -154,6 +156,9 @@ try {
             }, 100);
           }
         }
+
+        $el.attr('tabindex', 0).focus();
+
         $modalBackdrop.height($(document).innerHeight()).show();
         $('body').append($modalBackdrop).addClass('modal-open');
 
@@ -187,6 +192,8 @@ try {
         $('#viewport').removeAttr('style');
         $(window).scrollTop(tmpPos);
       });
+
+      $a11yFocused.focus();
 
       //$(this).remove();
     };
@@ -282,8 +289,7 @@ try {
         $(window).delay(200).scrollTop(0);
       }
 
-
-      if (_windowHeight < $(document).innerHeight())
+      if (_windowHeight > $(document).innerHeight())
         $modalBackdrop.height(_windowHeight);
 
     });

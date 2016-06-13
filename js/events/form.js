@@ -106,13 +106,23 @@ try {
     });
 
     /*
-     ** @desc: Input 영역에서 엔터키 입력 시 해당 form 이 submit 
-     ** @date: 2015.12.24 
+     ** @desc: Input 영역에서 엔터키 입력 시 submit 이벤트 막기
+     ** @date: 2016.06.13
      */
     $("input, textarea").keypress(function(event) {
       if (event.which == 13) {
-        $(this).closest("form").submit();
+        //$(this).closest("form").submit(); // Submit 실행
+        event.preventDefault();
       }
+    });
+
+    /*
+     ** @desc: Radio OnChanged Callback
+     */
+    $('input[type="radio"]').on('change', function() {
+      var $target = $($(this).attr('id'));
+
+      console.log( $(this).attr('value') )
     });
 
   })(mui, $, undefined);
