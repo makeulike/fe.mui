@@ -3,6 +3,7 @@ try {
   (function(mui, $, undefined) {
     "use strict";
     /**
+     * /////////////////////////////// Disabled ////////////////////////////////
      * @memberOf Events/form
      * @event label click
      * @description 
@@ -23,7 +24,7 @@ try {
      *   <i></i>
      * </label>
      * <input type="radio" id="radio" name="radio" class="is-custom"/>
-     */
+     
     $('label').on('click', function(e) {
       if ($(this).attr("for") !== "") {
         var
@@ -55,6 +56,13 @@ try {
         }
       }
     });
+    */
+
+    var getLabel = function($this, e) {
+      var $self = $this;
+
+      return ($self.closest('label').length > 0) ? $self.closest('label') : $self.parent().find('label[for="' + $self.attr('id') + '"]');
+    };
 
     /**
      * @memberOf Events/form
@@ -116,14 +124,68 @@ try {
       }
     });
 
-    /*
-     ** @desc: Radio OnChanged Callback
-     */
-    $('input[type="radio"]').on('change', function() {
-      var $target = $($(this).attr('id'));
 
-      console.log( $(this).attr('value') )
+    /**
+     * Custom Checkbox & Radio Buttons Refactoring
+     * @date: 160614
+     */
+    // checkboxes & radio common focus event binding
+    // 포커스, 혹은 해당 레이블 클릭 시 is-focused 를 추가하여 요소에 대한 시각적인 구분 제공
+    $('input[type="checkbox"],input[type="radio"]').on('focus', function(e) {
+      var $_self = $(this);
+      if (!$_self.hasClass('is-custom')) // didn't use customize checkboxes
+        return true;
+
+      var $_selfLabel = getLabel($(this), e);
+
+      $_selfLabel.addClass('is-focused');
     });
+
+    // checkboxes & radio common blur event binding
+    // 포커스 해지 시 is-focused 클래스를 제거
+    $('input[type="checkbox"],input[type="radio"]').on('blur', function(e) {
+      var $_self = $(this);
+      if (!$_self.hasClass('is-custom')) // didn't use customize checkboxes
+        return true;
+
+      var $_selfLabel = getLabel($(this), e);
+
+      if ($_selfLabel.hasClass('is-focused'))
+        $_selfLabel.removeClass('is-focused');
+    });
+
+    $('input[type="checkbox"]').on('change', function(e) {
+      var $_self = $(this);
+      if (!$_self.hasClass('is-custom')) // didn't use customize checkboxes
+        return true;
+
+      var $_selfLabel = getLabel($(this), e);
+      var isChecked = $_self.is(':checked');
+
+      if (isChecked) {
+        $_selfLabel.addClass('is-checked');
+      } else {
+        $_selfLabel.removeClass('is-checked');
+      }
+    });
+
+    $('input[type="radio"]').on('change', function(e) {
+      var $_self = $(this);
+      if (!$_self.hasClass('is-custom')) // didn't use customize checkboxes
+        return true;
+
+      var $_selfLabel = getLabel($(this), e);
+      var radioName = $(this).attr('name');
+
+      $('input[name="' + radioName + '"]').each(function() {
+        var $label = getLabel($(this));
+        $label.removeClass('is-checked checked'); //  예전 버전 호환 (checked 클래스 사용)
+      });
+
+      $_selfLabel.addClass('is-checked');
+    });
+
+
 
   })(mui, $, undefined);
 } catch (e) {

@@ -2,18 +2,15 @@
 // # Mixin
 // # Sass 에서 자주 사용되는 믹스인 정의(추후 각 카테고리별로 분류 할 예정)
 // ----------------------------------------------------------------------------------------------------
-
 // ----------------------------------------------------------------------------------------------------
 // Opacity
 // usage : @include opacity(0.7)
 // ----------------------------------------------------------------------------------------------------
-
 @mixin opacity($opacity) {
-  -webkit-opacity:$opacity;
-  -moz-opacity:$opacity;
-  -khtml-opacity:$opacity;
+  -webkit-opacity: $opacity;
+  -moz-opacity: $opacity;
+  -khtml-opacity: $opacity;
   opacity: $opacity;
-
   $opacity-ie: $opacity * 100;
   //-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=$opacity-ie)";
   filter: alpha(opacity=$opacity-ie); //IE8
@@ -23,7 +20,7 @@
 // 퍼센트 환산
 // usage : @include calc-percent($value)
 // ----------------------------------------------------------------------------------------------------
-@function getPercent($value, $design-width){
+@function getPercent($value, $design-width) {
   @return ($value / $design-width) * 100%;
 }
 
@@ -31,15 +28,14 @@
 // Get REM
 //
 @function rem($target) {
-    @return ($target / $root-em) * 1rem;
+  @return ($target / $root-em) * 1rem;
 }
 
 // ----------------------------------------------------------------------------------------------------
 // 커스텀 체크박스 (mixin)
 // usage : @include custom-checkbox($path, width, height)
 // ----------------------------------------------------------------------------------------------------
-
-@mixin hide-checkbox{
+@mixin hide-checkbox {
   position: absolute;
   overflow: hidden;
   clip: rect(0 0 0 0);
@@ -50,104 +46,113 @@
   border: 0;
 }
 
-@mixin checkbox($url, $width, $height, $isMobile: false){
+@mixin checkbox($url, $width, $height, $isMobile: false) {
   padding-left: $width;
   height: $height;
   display: inline-block;
-  background-image:url($url);
+  background-image: url($url);
   background-repeat: no-repeat;
   background-position: 0 0;
   cursor: pointer;
-  &.checked{
-    background-position:0 (-$height);
+  &.checked, //  .checked well be deprecated
+  &.is-checked {
+    background-position: 0 (-$height);
   }
-  &.disabled{
-    background-position:0 (-$height*2);
+  &.disabled {
+    background-position: 0 (-$height*2);
   }
 
-  @if $isMobile == true {
-    background-size:$width;
+  // 160614 Added visualize for A11y
+  &.is-focused {
+    position: relative;
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: $width;
+      height: $height;
+      outline: 1px dotted;
+      outline: auto -webkit-focus-ring-color;
+      outline-color: blue;
+    }
+  }
 
-    img{
-      width:auto;
+  @if $isMobile==true {
+    background-size: $width;
+    img {
+      width: auto;
     }
     @each $viewport in $viewport-array {
       @include breakpoint-max($viewport) {
         $each-width: floor( $width / ($design-width / $viewport));
-        
         padding-left: $each-width;
         height: $each-width;
-
         background-size: $each-width;
-        
-        &.checked{
-          background-position:0 (-$each-width);
+        &.checked,
+        &.is-checked {
+          background-position: 0 (-$each-width);
         }
-        &.disabled{
-          background-position:0 (-$each-width*2);
+        &.is-focused{
+          &:before{
+            width: $each-width;
+            height: $each-width;
+          }
+        }
+        &.disabled {
+          background-position: 0 (-$each-width*2);
         }
         img {
           height: $each-width;
         }
       }
     }
-
   }
 }
 
-@mixin checkbox-elem($url, $width, $ratio : 100%){
-
+@mixin checkbox-elem($url, $width, $ratio: 100%) {
   display: block;
-
   & > i,
-  & > img{
-    display:inline-block;
+  & > img {
+    display: inline-block;
   }
-  & > i{
-    width : $width;
-    background:transparent url($url) no-repeat;
-    background-position:0 0;
-    background-size:$width;
-    cursor:pointer;
+  & > i {
+    width: $width;
+    background: transparent url($url) no-repeat;
+    background-position: 0 0;
+    background-size: $width;
+    cursor: pointer;
   }
-  
-  & > i:after{
-      padding-bottom:$width;
-      content:'';
-      display:block;
+  & > i:after {
+    padding-bottom: $width;
+    content: '';
+    display: block;
   }
-
-  &.checked > i{
-    background-position:0 (-$width);
+  &.checked > i {
+    background-position: 0 (-$width);
   }
-  &.disabled > i{
-    background-position:0 (-$width*2);
+  &.disabled > i {
+    background-position: 0 (-$width*2);
   }
-
-
   @each $viewport in $viewport-array {
     @include breakpoint-max($viewport) {
       $each-width: floor( $width / ($design-width / $viewport)) - 2;
-      & > i{
-        width : $each-width;
-        background-size:$each-width;
+      & > i {
+        width: $each-width;
+        background-size: $each-width;
       }
-      
-      & > i:after{
-          padding-bottom:$each-width;
+      & > i:after {
+        padding-bottom: $each-width;
       }
-
-      &.checked > i{
-        background-position:0 (-$each-width);
+      &.checked > i {
+        background-position: 0 (-$each-width);
       }
-      &.disabled > i{
-        background-position:0 (-$each-width*2);
+      &.disabled > i {
+        background-position: 0 (-$each-width*2);
       }
     }
   }
-
-  
-
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -155,17 +160,18 @@
 // usage : @include nav-list(3);
 //----------------------------------------------------------------------------------------------------
 @mixin nav-list($elem_cnt) {
-    list-style-type:none;
-    padding:0;margin:0;
-    overflow:hidden;
-    > li{
-        display:block;
-        float:left;
-        width: 100% / $elem_cnt;
-        &:last-child{
-            margin-right:0px;
-        }
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  > li {
+    display: block;
+    float: left;
+    width: 100% / $elem_cnt;
+    &:last-child {
+      margin-right: 0px;
     }
+  }
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -174,38 +180,46 @@
 // ----------------------------------------------------------------------------------------------------
 @mixin clearfix {
   *zoom: 1;
-
   &:before,
   &:after {
     content: "";
     display: table;
   }
-
   &:after {
     clear: both;
   }
-} 
+}
 
 // ----------------------------------------------------------------------------------------------------
 // 반응형 웹디자인
 // usage : @include 
 // ----------------------------------------------------------------------------------------------------
 @mixin breakpoint($property, $point) {
-    @media screen and ($property: $point)  { @content; }
+  @media screen and ($property: $point) {
+    @content;
+  }
 }
 
 @mixin breakpoint-max($point) {
-  @if $point == large {
-    @media screen and (max-width: 64.375em) { @content; }
+  @if $point==large {
+    @media screen and (max-width: 64.375em) {
+      @content;
+    }
   }
-  @else if $point == medium {
-    @media screen and (max-width: 50em) { @content; }
+  @else if $point==medium {
+    @media screen and (max-width: 50em) {
+      @content;
+    }
   }
-  @else if $point == small {
-    @media screen and (max-width: 37.5em)  { @content; }
+  @else if $point==small {
+    @media screen and (max-width: 37.5em) {
+      @content;
+    }
   }
   @else {
-    @media screen and (max-width: $point)  { @content; }
+    @media screen and (max-width: $point) {
+      @content;
+    }
   }
 }
 
@@ -214,11 +228,7 @@
 // usage : @include image-2x("logo2x.png", 100px, 25px);
 // ----------------------------------------------------------------------------------------------------
 @mixin image-2x($image, $width, $height) {
-  @media screen and (min--moz-device-pixel-ratio: 1.3),
-         (-o-min-device-pixel-ratio: 2.6/2),
-         (-webkit-min-device-pixel-ratio: 1.3),
-         (min-device-pixel-ratio: 1.3),
-         (min-resolution: 1.3dppx) {
+  @media screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6/2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
     /* on retina, use image that's scaled by 2 */
     background-image: url($image);
     background-size: $width $height;
@@ -231,17 +241,17 @@
 // ----------------------------------------------------------------------------------------------------
 @mixin box-sizing($box-model) {
   -webkit-box-sizing: $box-model; // Safari <= 5
-     -moz-box-sizing: $box-model; // Firefox <= 19
-          box-sizing: $box-model;
+  -moz-box-sizing: $box-model; // Firefox <= 19
+  box-sizing: $box-model;
 }
 
 // ----------------------------------------------------------------------------------------------------
 // absolute 포지션
 // usage : @include abs-pos(10px, 10px, 5px, 15px , $test : 1);
 // ----------------------------------------------------------------------------------------------------
-@mixin abs-pos ($top: null, $right: null, $bottom: null, $left: null, $test : 1) {
-  @if $test == 0{
-    background-color:#000;
+@mixin abs-pos ($top: null, $right: null, $bottom: null, $left: null, $test: 1) {
+  @if $test==0 {
+    background-color: #000;
   }
   top: $top;
   right: $right;
@@ -264,7 +274,6 @@
 // 사이즈 지정
 // usage : @include size(가로,세로);
 // ----------------------------------------------------------------------------------------------------
-
 @mixin size($width, $height: $width) {
   width: $width;
   height: $height;
@@ -273,25 +282,29 @@
 // ----------------------------------------------------------------------------------------------------
 // 투명배경 
 // ----------------------------------------------------------------------------------------------------
-@mixin transparent{
-  background:transparent;
-  border:0;
+@mixin transparent {
+  background: transparent;
+  border: 0;
 }
 
 // ----------------------------------------------------------------------------------------------------
 // placeholder 색상
 // ----------------------------------------------------------------------------------------------------
-@mixin placeholder-color($color){
-  ::-webkit-input-placeholder { /* WebKit browsers */
+@mixin placeholder-color($color) {
+  ::-webkit-input-placeholder {
+    /* WebKit browsers */
     color: $color;
   }
-  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
     color: $color;
   }
-  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+  ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
     color: $color;
   }
-  :-ms-input-placeholder { /* Internet Explorer 10+ */
+  :-ms-input-placeholder {
+    /* Internet Explorer 10+ */
     color: $color;
   }
 }
@@ -299,50 +312,51 @@
 // ----------------------------------------------------------------------------------------------------
 // transform
 // ----------------------------------------------------------------------------------------------------
-@mixin transform($property){
-  -webkit-transform:$property;
-  -moz-transform:$property;
-  -ms-transform:$property;
-  transform:$property;
+@mixin transform($property) {
+  -webkit-transform: $property;
+  -moz-transform: $property;
+  -ms-transform: $property;
+  transform: $property;
 }
 
-@mixin transform-origin($property){
-  -webkit-transform-origin:$property;
-  -moz-transform-origin:$property;
-  -ms-transform-origin:$property;
-  transform-origin:$property;
+@mixin transform-origin($property) {
+  -webkit-transform-origin: $property;
+  -moz-transform-origin: $property;
+  -ms-transform-origin: $property;
+  transform-origin: $property;
 }
+
 // ----------------------------------------------------------------------------------------------------
 // transition
 // ----------------------------------------------------------------------------------------------------
-@mixin transition($property){
-  -webkit-transition:$property;
-  -moz-transition:$property;
-  -ms-transition:$property;
-  transition:$property;
+@mixin transition($property) {
+  -webkit-transition: $property;
+  -moz-transition: $property;
+  -ms-transition: $property;
+  transition: $property;
 }
+
 // ----------------------------------------------------------------------------------------------------
 // transition-delay
 // ----------------------------------------------------------------------------------------------------
-@mixin transition-delay($time){
-  -webkit-transition-delay:$time ;
-  -moz-transition-delay:$time ;
-  -ms-transition-delay:$time ;
-  transition-delay:$time;
+@mixin transition-delay($time) {
+  -webkit-transition-delay: $time;
+  -moz-transition-delay: $time;
+  -ms-transition-delay: $time;
+  transition-delay: $time;
 }
-
 
 // ----------------------------------------------------------------------------------------------------
 // 게임 랜딩페이지 배경 설정
 // ----------------------------------------------------------------------------------------------------
-@mixin setPage($src, $height){
-  position:relative;
-  margin-left:auto;
-  margin-right:auto;
+@mixin setPage($src, $height) {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
   background-image:url(#{$src});
-  background-repeat:no-repeat;
-  background-position:center top;
-  height:$height;
+  background-repeat: no-repeat;
+  background-position: center top;
+  height: $height;
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -354,32 +368,34 @@
   // Print the first line in pixel values
   #{$property}: $px-values;
   // If there is only one (numeric) value, return the property/value line for it.
-  @if type-of($px-values) == "number" {
-    #{$property}: $px-values / $baseline-rem; 
-  }@else {
+  @if type-of($px-values)=="number" {
+    #{$property}: $px-values / $baseline-rem;
+  }
+  @else {
     // Create an empty list that we can dump values into
     $rem-values: unquote("");
     @each $value in $px-values {
       // If the value is zero, return 0
-      @if $value == 0 {
-        $rem-values: append($rem-values, $value); 
-      } @else {
-        $rem-values: append($rem-values, $value / $baseline-rem); 
-      } 
+      @if $value==0 {
+        $rem-values: append($rem-values, $value);
+      }
+      @else {
+        $rem-values: append($rem-values, $value / $baseline-rem);
+      }
     }
     // Return the property and its list of converted values
-    #{$property}: $rem-values; 
-  } 
+    #{$property}: $rem-values;
+  }
 }
 
 // ----------------------------------------------------------------------------------------------------
 // 여백 제거 및 ul, ol 초기화 
 // ----------------------------------------------------------------------------------------------------
-@mixin no-margin($type: null){
-  margin:0;
-  padding:0;
-  @if $type == 'list'{
-    list-style:none;
+@mixin no-margin($type: null) {
+  margin: 0;
+  padding: 0;
+  @if $type=='list' {
+    list-style: none;
   }
 }
 

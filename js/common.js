@@ -76,7 +76,7 @@ try {
       return (currentURL.indexOf(url) > -1);
     }
 
-    var setLandscapeMessage = function(url){
+    var setLandscapeMessage = function(url, bgColor){
       var elem = document.createElement('div');
             elem.id = 'is-landscape';
 
@@ -87,11 +87,10 @@ try {
       elem.style.right = 0;
       elem.style.bottom = 0;
       elem.style.left = 0;
-
       elem.style.zIndex = 9999;
 
+      (typeof bgColor === "undefined") ? elem.style.backgroundColor = "#000" : elem.style.backgroundColor = bgColor ; 
       elem.style.backgroundImage = 'url('+url+')';
-      elem.style.backgroundColor = "#000";
       elem.style.backgroundPosition = 'center';
       elem.style.backgroundRepeat = "no-repeat";
       elem.style.backgroundSize = '400px auto';

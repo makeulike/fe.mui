@@ -48,48 +48,6 @@ try {
         uiScrollTop.fadeOut();
       }, 1500);
     }
-
-    /**
-     * ScrollSpy 기능
-     * @param {ID} href 해당 ID를 가진 엘리먼트의 최 상단으로 이동
-     * @param {data-avoid-target} Selector target 된 스크롤 시 엘리먼트의 높이값을 더함
-     * @event [data-toggle="scrollspy"] click
-     * @memberOf Events/scroll
-     * @example
-     * // Basic
-     * <a href="#target" data-toggle="scrollspy"> 
-     *   target으로 이동 
-     * </a>
-     * @example
-     * // data-avoid-target 적용
-     * <a href="#target" data-toggle="scrollspy" data-avoid-target=".gnb"> 
-     *   target의 위치와 $('.gnb') 높이를 더한 값으로 이동
-     * </a>
-     */
-    $(document).on('click', '[data-toggle="scrollspy"]', function(e) {
-      e.preventDefault();
-
-      var
-        target = $(this).attr('href'),
-        avoidTarget = $(this).attr('data-avoid-target'),
-        value = $(target).offset().top;
-
-      /*
-       ** @desc: target 이 1개 이상일 경우 , 로 문자열 자른 후 innerHeight 을 더함
-       */
-      if (typeof avoidTarget !== "undefined") {
-        if (avoidTarget.indexOf(',') > 0) {
-          var arr = avoidTarget.split(',');
-          for (var i = 0; i < arr.length; i++) {
-            value -= $(arr[i]).outerHeight();
-          }
-        } else {
-          value -= $(avoidTarget).outerHeight() - 1;
-        }
-      }
-
-      mui.util.goToPosition(value);
-    });
   })(mui, $, undefined);
 
 } catch (e) {
