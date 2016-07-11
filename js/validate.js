@@ -26,6 +26,18 @@ try {
     };
 
     /**
+     * 이메일 검증
+     * @function
+     * @private
+     * @return {Boolean}       검증 여부
+     */
+    var isEmail = function(value){
+      var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+      return regExpEmail.test(value)
+    };
+
+    /**
      * 폼 초기화
      * @function mui.validate.init
      * @param  {$DOM} $el 초기화 할 폼
@@ -40,7 +52,7 @@ try {
       });
       $el.find('input[type="radio"]').prop('checked', false);
       $el.find('input[type="checkbox"]').prop('checked', false);
-      $el.find('label').removeClass('checked');
+      $el.find('label').removeClass('checked, is-checked');
     };
 
     /**
@@ -55,6 +67,8 @@ try {
       if ($el.val().length === 0)
         return false;
       else if (cond === 'tel' && isTel($el.val()) !== true)
+        return false;
+      else if (cond === 'email' && isEmail($el.val()) !== true)
         return false;
       else
         return true;
