@@ -64,14 +64,19 @@ try {
      * @return {Boolean}      검증 여부
      */
     var getInputState = function($el, cond, e) {
-      if ($el.val().length === 0)
-        return false;
-      else if (cond === 'tel' && isTel($el.val()) !== true)
-        return false;
-      else if (cond === 'email' && isEmail($el.val()) !== true)
-        return false;
-      else
-        return true;
+      var state = true;
+
+      if ($el.val().length === 0){
+        state = false;
+      } else if (cond === 'tel' && isTel($el.val()) !== true){
+        state = false;
+      } else if (cond === 'email' && isEmail($el.val()) !== true){
+        state = false;
+      }
+
+      if( !state ) $el.focus();
+
+      return state;
     };
 
     /**
@@ -84,10 +89,12 @@ try {
     var getCheckBoxState = function($el, e) {
       var isChecked = $el.is(":checked"); //.attr('checked');
 
-      if (isChecked)
+      if (isChecked){
         return true;
-      else
+      } else {
+        $el.focus();
         return false;
+      }
     };
 
     /**
@@ -99,6 +106,9 @@ try {
      */
     var getRadioValue = function(name, e) {
       var value = $('input:radio[name="' + name + '"]:checked').val();
+      var $target = $('input:radio[name="' + name + '"]').eq(0);
+
+      $target.focus();
 
       if (typeof value == "undefined")
         return false;

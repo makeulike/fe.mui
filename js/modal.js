@@ -109,7 +109,7 @@ try {
        * 160526
        * 엔터키 입력 시 계속 실행되는 것을 방지하게 위하여 blur 처리
        */
-      $('a, input, button').trigger("blur");
+      $('a, area, input, button').trigger("blur");
 
       if( isOpenedModal('open') ){
         var $_self = isOpenedModal('open');
@@ -173,7 +173,7 @@ try {
      */
     var closeModal = function(id, destroy) {
       var $el = $('#' + id);
-
+      
       $el.hide();
 
       // 모달창이 열려 있으면 해당되는 레이어팝업만 닫게 하기 (160525)
@@ -193,9 +193,11 @@ try {
         $(window).scrollTop(tmpPos);
       });
 
-      $a11yFocused.focus();
-
-      //$(this).remove();
+      // $a11yFocused 가 AREA 이면 포커스가 이상한 곳에 갈 수 있음으로 강제 리턴 시킴 (160712 추가)
+      if( $a11yFocused[0].tagName === "AREA" )
+        return ;
+      else 
+        $a11yFocused.focus();
     };
 
     /*
