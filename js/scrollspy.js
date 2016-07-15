@@ -29,6 +29,9 @@
         scrollEndCallback: function(){
         }
       });
+	  OR
+      var scrollSpy = new ScrollSpy($('.nav-gnb'),{});
+
       // 초기화
       scrollSpy.init();
 
@@ -59,13 +62,12 @@ function ScrollSpy($target, opt) {
   this.isScrolling = false;
 
   this.opt = {
-    onClassName: opt.onClassName,
+    onClassName: ((typeof opt.onClassName === 'undefined')? 'is-active': opt.onClassName),
     extraHeight: ((typeof opt.extraHeight === 'undefined') ? 0 : opt.extraHeight),
     isSticky: ((typeof opt.isSticky === 'undefined') ? 0 : opt.isSticky),
     scrollEndCallback: opt.scrollEndCallback
   };
 
-  this.opt.extraHeight += this.$target.innerHeight();
 };
 
 ScrollSpy.prototype.init = function() {
