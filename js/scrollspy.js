@@ -61,12 +61,26 @@ function ScrollSpy($target, opt) {
 
   this.isScrolling = false;
 
-  this.opt = {
-    onClassName: ((typeof opt.onClassName === 'undefined')? 'is-active': opt.onClassName),
-    extraHeight: ((typeof opt.extraHeight === 'undefined') ? 0 : opt.extraHeight),
-    isSticky: ((typeof opt.isSticky === 'undefined') ? 0 : opt.isSticky),
-    scrollEndCallback: opt.scrollEndCallback
-  };
+  if(typeof opt !== "undefined"){
+    // 매개변수 옵션이 존재하는 경우
+    this.opt = {
+      onClassName: ((typeof opt.onClassName === 'undefined')? 'is-active': opt.onClassName),
+      extraHeight: ((typeof opt.extraHeight === 'undefined') ? 0 : opt.extraHeight),
+      isSticky: ((typeof opt.isSticky === 'undefined') ? true : opt.isSticky),
+      scrollEndCallback: opt.scrollEndCallback
+    };
+
+    // isSticky 이면 해당 GNB 높이는 자동으로 extraHeight 에 추가 하기
+    if( this.opt.isSticky ){
+      this.opt.extraHeight += $target.innerHeight();
+    }
+    // 매개변수 옵션 존재 시 처리 내용 끝
+  } else {
+    // 매개변수 옵션이 존재하지 않는 경우
+    this.opt = {
+      extraHeight: 0
+    }
+  }
 
 };
 
@@ -83,7 +97,7 @@ ScrollSpy.prototype.init = function() {
 };
 
 ScrollSpy.prototype.onScroll = function() {
-  if (typeof this.opt.onClassName === "undefined")
+  if (this.opt === null || typeof this.opt.onClassName === "undefined")
     return;
 
   this.index = this.getCurrentPages();

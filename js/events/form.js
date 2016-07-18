@@ -188,7 +188,7 @@ try {
     /**
      * maxlength 지원 (IE8 ~)
      */
-    $(document).on('input keyup', 'textarea[maxlength]', function(e) {
+    $(document).on('input keyup', 'input[maxlength], textarea[maxlength]', function(e) {
       // maxlength attribute does not in IE prior to IE10
       // http://stackoverflow.com/q/4717168/740639
       var $this = $(this);
@@ -201,6 +201,8 @@ try {
           $this.val(text.substring(0, maxlength));
           e.preventDefault();
         }
+
+        return text.length;
       }
     });
 

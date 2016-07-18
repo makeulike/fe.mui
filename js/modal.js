@@ -101,7 +101,6 @@ try {
      */
     var openModal = function(id) {
       $el = $('#' + id);
-
       // 키보드 접근성
       $a11yFocused = $(document.activeElement);
 
@@ -173,7 +172,6 @@ try {
      */
     var closeModal = function(id, destroy) {
       var $el = $('#' + id);
-      
       $el.hide();
 
       // 모달창이 열려 있으면 해당되는 레이어팝업만 닫게 하기 (160525)
@@ -294,6 +292,22 @@ try {
       if (_windowHeight > $(document).innerHeight())
         $modalBackdrop.height(_windowHeight);
 
+    });
+
+    /**
+     * @event [window] Key Events
+     * @date: 160718
+     */
+    $modal.on('keydown', function(e){
+
+      // ESC 키 누를 시 레이어 팝업 닫기
+      if( e.keyCode === 27 ){
+        $modal.each(function(){
+          if($(this).css('display') === 'block'){
+            closeModal($(this).attr('id').replace('#', ''));
+          }
+        });
+      }
     });
 
     return {
