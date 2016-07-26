@@ -3,42 +3,49 @@
 // # 자주 사용되는 스타일에 대한 @extend 값을 구성
 // @ usage : @extend %name
 // ----------------------------------------------------------------------------------------------------
-
 %clearfix {
   @include clearfix;
 }
 
-%hide-checkbox{
+%hide-checkbox {
   @include hide-checkbox;
 }
 
-%center-block{
+%center-block {
   @include center-block;
 }
 
-%transparent{
+%transparent {
   @include transparent;
 }
 
-%no-margin{
-	margin:0;
-	padding:0;
+%no-margin {
+  margin: 0;
+  padding: 0;
 }
 
-%list-style-none{
-	list-style:none;
-	@extend %no-margin;
+%list-style-none {
+  list-style: none;
+  @extend %no-margin;
 }
 
-%empty-button{
-  margin:0;
-  padding:0;
-  border:none;
-  background-color:transparent;
+%empty-button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
   -webkit-appearance: none;
 }
-%empty-fieldset{
-  margin:0;
-  padding:0;
-  border:none;
+
+%empty-fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+%spacer {
+  display:block;
+  // Spacer Images less than IE10
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQIHWP4zwAAAgEBAMVfG14AAAAASUVORK5CYII=);
+  text-indent: -9999px;
 }

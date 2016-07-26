@@ -66,7 +66,7 @@ function ScrollSpy($target, opt) {
     this.opt = {
       onClassName: ((typeof opt.onClassName === 'undefined')? 'is-active': opt.onClassName),
       extraHeight: ((typeof opt.extraHeight === 'undefined') ? 0 : opt.extraHeight),
-      isSticky: ((typeof opt.isSticky === 'undefined') ? true : opt.isSticky),
+      isSticky: ((typeof opt.isSticky === 'undefined') ? false : opt.isSticky),
       scrollEndCallback: opt.scrollEndCallback
     };
 

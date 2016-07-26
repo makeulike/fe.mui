@@ -23,8 +23,14 @@
     overflow-y: scroll;
     & > #viewport{
       position:fixed;
+      right:0;
+      left:0;
+
       width:100%;
-      max-width:none;
+      //max-width:none;
+
+      margin-right:auto;
+      margin-left:auto;
     }
   }
 
