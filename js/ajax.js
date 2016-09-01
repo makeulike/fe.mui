@@ -41,8 +41,13 @@ try{
       });
     };
 
+    var jsonp = function(url, callback){
+      $.getJSON(url, callback);
+    };
+
     return {
-      call:call
+      call:call,
+      jsonp: jsonp
     };
 
   })(mui, jQuery); 
