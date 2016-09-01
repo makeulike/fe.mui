@@ -15,19 +15,19 @@
  * @copyright 2016 Jeong Myoung Hak
  * @license http://opensource.org/licenses/MIT MIT
  */
-function Sequence(width, height, scene, speed, selector, isReplay) {
-  this.width = width;
-  this.height = height;
+function Sequence(param){
+  this.width = param.width;
+  this.height = param.height;
+  this.padding = param.padding;
+  this.scene = param.scene;  
+  this.speed = param.speed;
 
-  this.scene = scene;
-  this.speed = speed;
-
-  this.selector = selector;
+  this.selector = param.selector;
 
   this.count = 0;
   this.object = '';
 
-  this.isReplay = isReplay;
+  this.isReplay = param.isReplay;
 };
 
 /**

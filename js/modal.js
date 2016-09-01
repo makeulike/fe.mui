@@ -103,7 +103,7 @@ try {
       $el = $('#' + id);
       // 키보드 접근성
       $a11yFocused = $(document.activeElement);
-
+      
       /**
        * 160526
        * 엔터키 입력 시 계속 실행되는 것을 방지하게 위하여 blur 처리
@@ -156,7 +156,8 @@ try {
           }
         }
 
-        $el.attr('tabindex', 0).focus();
+        // .focus(); 제외 (아이프레임 및 IE에서 작동이 이상함)
+        $el.attr('tabindex', 0);
 
         $modalBackdrop.height($(document).innerHeight()).show();
         $('body').append($modalBackdrop).addClass('modal-open');
@@ -271,7 +272,7 @@ try {
     $(window).resize(function() {
 
       var _windowWidth = mui.common.getWindowWidth(),
-        _windowHeight = mui.common.getWindowHeight();
+            _windowHeight = mui.common.getWindowHeight();
 
       /**
        * 현재 모달이 지정되어 있으면서 해당 모달이 block 형태라면 리사이징 진행
@@ -289,9 +290,11 @@ try {
         $(window).delay(200).scrollTop(0);
       }
 
+      $modalBackdrop.height(_windowHeight);
+/*      
       if (_windowHeight > $(document).innerHeight())
         $modalBackdrop.height(_windowHeight);
-
+*/
     });
 
     /**

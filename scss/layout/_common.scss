@@ -35,3 +35,8 @@ html{
   width:100%;
   height:100%;
 }
+
+#indicator{
+  background: rgba(0, 0, 0, 0.5);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#60000000,endColorstr=#60000000);
+}

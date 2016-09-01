@@ -108,12 +108,39 @@ try {
       
     };
 
+    var loading = function(state, indicator){
+      var elem = document.createElement('div');
+            elem.id = 'indicator';
+
+      elem.style.position = "fixed";
+
+      elem.style.top = 0;
+      elem.style.right = 0;
+      elem.style.bottom = 0;
+      elem.style.left = 0;
+      elem.style.zIndex = 9999;
+
+      (typeof indicator === "undefined")  
+      ? elem.style.backgroundImage = "url(./images/indicator-black.gif)" 
+      : elem.style.backgroundImage = 'url('+indicator+')';
+
+      elem.style.backgroundPosition = 'center';
+      elem.style.backgroundRepeat = "no-repeat";
+
+      if( state === 'show')
+        document.body.appendChild(elem);
+      else if ( state === 'hide' )
+        document.body.removeChild(document.getElementById(elem.id));
+
+    };
+
     return {
       getWindowWidth: getWindowWidth,
       getWindowHeight: getWindowHeight,
       disabledDefaultMouseEvents: disabledDefaultMouseEvents,
       isDomain: isDomain,
-      setLandscapeMessage:setLandscapeMessage
+      setLandscapeMessage:setLandscapeMessage,
+      loading: loading
     };
   })(mui, $);
 } catch (e) {

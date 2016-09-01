@@ -73,13 +73,13 @@ try {
      * @example 
      * <input type="text" data-input="tel"/>
      */
-    var $target = $('input[data-input="tel"]');
-    $target.keypress(function(e) {
+    var $targetTel = $('input[data-input="tel"]');
+    $targetTel.keypress(function(e) {
       var charCode = (event.which) ? event.which : event.keyCode;
       if (charCode > 31 && (charCode < 48 || charCode > 57))
         return false;
     });
-    $target.keyup(function(e) {
+    $targetTel.keyup(function(e) {
       var telMaxlength = 11;
       var $this = $(this);
 
@@ -94,6 +94,18 @@ try {
         }
       }
     });
+
+    var $targetNumber = $('input[data-input="number"]');
+    $targetNumber.keypress(function(e) {
+      var charCode = (event.which) ? event.which : event.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    });
+    $targetNumber.keyup(function(e) {
+      var $this = $(this);
+      $(this).val($(this).val().replace(/[^0-9]/gi, ""));
+    });
+    
 
     /*
      ** @desc: Input 클릭 시 Placeholder 내용이 사라짐

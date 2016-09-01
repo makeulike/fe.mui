@@ -51,7 +51,7 @@
 
 function ScrollSpy($target, opt) {
   this.$target = $target;
-  this.$elem = this.$target.find('[data-toggle="scrollspy"]');
+  this.$elem = this.$target.find('[data-toggle="scrollspy"]').not('.js-disabled');
   this.$pages = $.makeArray(this.$elem.map(function() {
     return $($(this).attr('href'));
   }));
@@ -97,13 +97,13 @@ ScrollSpy.prototype.init = function() {
 };
 
 ScrollSpy.prototype.onScroll = function() {
-  if (this.opt === null || typeof this.opt.onClassName === "undefined")
+  if (this.opt === null)
     return;
 
   this.index = this.getCurrentPages();
-
   this.offsetY = $(window).scrollTop();
-  if (this.opt.isSticky)
+
+  if (this.opt.isSticky || this.opt.extraHeight > 0)
     this.offsetY += Math.round(this.opt.extraHeight);
 
   this.$elem.removeClass(this.opt.onClassName);
@@ -129,6 +129,8 @@ ScrollSpy.prototype.goToScroll = function(target) {
 
       mui.util.enableScrolling();
 
+      $(window).trigger('scroll');
+
       // Execute Callback Functions
       if (typeof _self.opt.scrollEndCallback === "function") {
         _self.opt.scrollEndCallback();
@@ -141,11 +143,12 @@ ScrollSpy.prototype.getCurrentPages = function() {
   var idx = -1;
 
   for (var i = 0; i < this.$pages.length; i++) {
-    var selfOffsetTop = this.$pages[i].offset().top;
-    var selfHeight = this.$pages[i].innerHeight();
+    var selfOffsetTop = Math.floor(this.$pages[i].offset().top);
+    var selfHeight = Math.floor(this.$pages[i].innerHeight());
 
-    if (mui.util.getBetween(this.offsetY, selfOffsetTop, selfOffsetTop + selfHeight))
+    if (mui.util.getBetween(this.offsetY, selfOffsetTop, selfOffsetTop + selfHeight)){
       idx = i;
+    }
   }
   return idx;
 };

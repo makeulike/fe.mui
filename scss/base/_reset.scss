@@ -14,8 +14,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   text-rendering: optimizeLegibility !important;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  
+  /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;
+  */
 }
 
 html {
@@ -292,4 +294,11 @@ a,
 area,
 button{
   outline:0;
+}
+
+// if using base64..
+[class^='uri-']{
+  display:inline-block;
+  background-size:100% 100%;
+  text-indent: -9999px;
 }
