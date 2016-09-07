@@ -163,6 +163,9 @@ try {
         $('body').append($modalBackdrop).addClass('modal-open');
 
         $el.removeAttr('style').fadeIn('fast');
+        $el.find('.modal-content').addClass('is-opened');
+
+        $(window).scrollTop(0);
       }
     };
 
@@ -173,7 +176,8 @@ try {
      */
     var closeModal = function(id, destroy) {
       var $el = $('#' + id);
-      $el.hide();
+      $el.find('.modal-content').removeClass('is-opened');
+      $el.fadeOut('fast');
 
       // 모달창이 열려 있으면 해당되는 레이어팝업만 닫게 하기 (160525)
       if( isOpenedModal('close') !== false ){
